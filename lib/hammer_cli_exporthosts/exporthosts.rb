@@ -12,11 +12,11 @@ module HammerCLIExportHosts
     command_name 'Export Hosts for Migration'
 
     output do
-      field :id, 'id'
       field :name, 'name'
       field :ip, 'ip'
       field :mac, 'mac'
       field :operatingsystem_name, 'os'
+      field :environment_name, 'environment'
     end
 
     def adapter
@@ -30,6 +30,8 @@ module HammerCLIExportHosts
     end
 
     def execute
+      puts :operating_systems    
+
       print_record(output_definition, hosts)
       
       HammerCLI::EX_OK
@@ -44,6 +46,7 @@ module HammerCLIExportHosts
     def hosts
       @hosts ||= response['results']
     end
+
   end
 
   # Plug in to the hammer command
