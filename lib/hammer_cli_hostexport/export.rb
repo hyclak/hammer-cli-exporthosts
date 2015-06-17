@@ -4,12 +4,11 @@ require 'hammer_cli_foreman/host'
 module HammerCLIExportHosts
   class ExportHostsCommand < HammerCLIForeman::Command
 
-    DEFAULT_PER_PAGE = 1000
-
     resource :hosts
     action :index
 
     command_name 'Export Hosts for Migration'
+    option ["--per_page"], "PER_PAGE", "Number of responses to return", :default => 1000 
 
     output do
       field :name, 'name'
@@ -25,7 +24,7 @@ module HammerCLIExportHosts
 
     def request_params
       params             = super
-      params['per_page'] ||= HammerCLI::Settings.get(:ui, :per_page) || DEFAULT_PER_PAGE
+      params['per_page'] ||= "#{per_page}"
       params
     end
 
